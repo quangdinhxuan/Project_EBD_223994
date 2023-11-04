@@ -154,7 +154,7 @@ void adc_init() {
 	 *CCR |= (1 << 23);         // enable temperature sensor
 
 	 uint32_t* SMPR1 = (uint32_t*)(ADC_ADDR_BASE + 0x0C);
-	 *SMPR1 |= 0b111 << 18;     // set 480 cycles sampling rate for channel 16
+	 *SMPR1 |= 0b111 << 18;     // sample time for c16 is 480 cycles
 
 	 uint32_t* JSQR = (uint32_t*)(ADC_ADDR_BASE + 0x38);
 	 *JSQR &= ~(0b11 << 20);    //
@@ -167,16 +167,13 @@ void adc_init() {
 
 }
 int adc_measure_vin() {
-	 uint32_t* CR2  = (uint32_t*)(ADC_ADDR_BASE + 0x08);
-	 uint32_t* SR   = (uint32_t*)(ADC_ADDR_BASE + 0x00);
-	 uint32_t* JDR1 = (uint32_t*)(ADC_ADDR_BASE + 0x3C);
-	 uint16_t DR;
-
-	 *CR2 |= 1 << 22;               // start injected conversion
-	 while (((*SR >> 2) & 1) != 1); // wait till the end of injected conversion
-	DR = (*JDR1 & 0xfff);    // get first 12 bits only
-
-	 return (DR * 3000) / 4095;
+	uint32_t* CR2 = (uint32_t*)(ADC_ADDR_BASE + 0x08);
+		*CR2 |= 1 << 22;//start
+		uint32_t* SR = (uint32_t*)(ADC_ADDR_BASE + 0x00);
+		while (((*SR >> 2) & 1) != 1);//WAIt until injected conversion complete
+		uint32_t* JDR1 = (uint32_t*)(ADC_ADDR_BASE + 0x3C);
+		uint32_t DR = *JDR1 & 0xfff;
+		return (DR * 3000) / 4095;
 
 }
 float adc_get_temp()

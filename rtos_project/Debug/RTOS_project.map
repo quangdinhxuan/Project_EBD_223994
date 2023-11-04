@@ -5438,25 +5438,25 @@ LOAD C:/ST/STM32CubeIDE_1.13.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x0000000000003d12      0x196 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
  .debug_macro   0x0000000000003ea8      0x1ae ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
 
-.debug_line     0x0000000000000000     0xe33f
- .debug_line    0x0000000000000000      0xdec ./Core/Src/main.o
- .debug_line    0x0000000000000dec      0x6ff ./Core/Src/stm32f4xx_hal_msp.o
- .debug_line    0x00000000000014eb      0x8a6 ./Core/Src/stm32f4xx_it.o
- .debug_line    0x0000000000001d91      0x8a8 ./Core/Src/syscalls.o
- .debug_line    0x0000000000002639      0x579 ./Core/Src/sysmem.o
- .debug_line    0x0000000000002bb2      0x77f ./Core/Src/system_stm32f4xx.o
- .debug_line    0x0000000000003331       0x7a ./Core/Startup/startup_stm32f411vetx.o
- .debug_line    0x00000000000033ab      0x9e5 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x0000000000003d90      0xc94 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x0000000000004a24      0xb1d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x0000000000005541      0xd5c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x000000000000629d     0x23d8 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o
- .debug_line    0x0000000000008675      0x78c ./Middlewares/Third_Party/FreeRTOS/Source/list.o
- .debug_line    0x0000000000008e01     0x1756 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
- .debug_line    0x000000000000a557     0x1e1d ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .debug_line    0x000000000000c374      0xdf0 ./Middlewares/Third_Party/FreeRTOS/Source/timers.o
- .debug_line    0x000000000000d164      0x828 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
- .debug_line    0x000000000000d98c      0x9b3 ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+.debug_line     0x0000000000000000     0xe340
+ .debug_line    0x0000000000000000      0xded ./Core/Src/main.o
+ .debug_line    0x0000000000000ded      0x6ff ./Core/Src/stm32f4xx_hal_msp.o
+ .debug_line    0x00000000000014ec      0x8a6 ./Core/Src/stm32f4xx_it.o
+ .debug_line    0x0000000000001d92      0x8a8 ./Core/Src/syscalls.o
+ .debug_line    0x000000000000263a      0x579 ./Core/Src/sysmem.o
+ .debug_line    0x0000000000002bb3      0x77f ./Core/Src/system_stm32f4xx.o
+ .debug_line    0x0000000000003332       0x7a ./Core/Startup/startup_stm32f411vetx.o
+ .debug_line    0x00000000000033ac      0x9e5 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x0000000000003d91      0xc94 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x0000000000004a25      0xb1d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x0000000000005542      0xd5c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x000000000000629e     0x23d8 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o
+ .debug_line    0x0000000000008676      0x78c ./Middlewares/Third_Party/FreeRTOS/Source/list.o
+ .debug_line    0x0000000000008e02     0x1756 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
+ .debug_line    0x000000000000a558     0x1e1d ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ .debug_line    0x000000000000c375      0xdf0 ./Middlewares/Third_Party/FreeRTOS/Source/timers.o
+ .debug_line    0x000000000000d165      0x828 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_line    0x000000000000d98d      0x9b3 ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
 
 .debug_str      0x0000000000000000    0x8f2ce
  .debug_str     0x0000000000000000    0x866cc ./Core/Src/main.o
