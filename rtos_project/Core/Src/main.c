@@ -27,6 +27,9 @@
 #include<stdio.h>
 #define UART1_ADDRESS_BASE 0x40011000
 #define GPIOB_ADDRESS_BASE 0x40020400
+#define RCC_ADDR_BASE 0x40023800
+#define ADC_ADDR_BASE 0x40012000
+#define ADC_CC_ADDR_BASE (ADC_ADDR_BASE +0x300)
 
 /* USER CODE END Includes */
 
@@ -141,6 +144,49 @@ uart_send_string(buf);
 va_end(_ArgList);
 }
 int common_memory;
+
+void adc_init() {
+	//__HAL_RCC_ADC1_CLK_ENABLE();
+	uint32_t* RCC_APB2ENR = (uint32_t*)(RCC_ADDR_BASE + 0x44);
+	*RCC_APB2ENR |= (1 << 8);
+
+	 uint32_t* CCR = (uint32_t*)(ADC_CC_ADDR_BASE + 0x04);
+	 *CCR |= (1 << 23);         // enable temperature sensor
+
+	 uint32_t* SMPR1 = (uint32_t*)(ADC_ADDR_BASE + 0x0C);
+	 *SMPR1 |= 0b111 << 18;     // set 480 cycles sampling rate for channel 16
+
+	 uint32_t* JSQR = (uint32_t*)(ADC_ADDR_BASE + 0x38);
+	 *JSQR &= ~(0b11 << 20);    //
+	 *JSQR |= 16 << 15;         //  channel 16 temperature
+
+	 uint32_t* CR2  = (uint32_t*)(ADC_ADDR_BASE + 0x08);
+	 *CR2 |= 1 << 0;            // enable ADC
+
+
+
+}
+int adc_measure_vin() {
+	 uint32_t* CR2  = (uint32_t*)(ADC_ADDR_BASE + 0x08);
+	 uint32_t* SR   = (uint32_t*)(ADC_ADDR_BASE + 0x00);
+	 uint32_t* JDR1 = (uint32_t*)(ADC_ADDR_BASE + 0x3C);
+	 uint16_t DR;
+
+	 *CR2 |= 1 << 22;               // start injected conversion
+	 while (((*SR >> 2) & 1) != 1); // wait till the end of injected conversion
+	DR = (*JDR1 & 0xfff);    // get first 12 bits only
+
+	 return (DR * 3000) / 4095;
+
+}
+float adc_get_temp()
+{
+	int VSENSE = adc_measure_vin();
+	int V25 = 760;
+	float Avg_slope = 2.5;
+	float temper = ((VSENSE - V25) / Avg_slope) + 25;
+	return temper;
+}
 void led_init()
 {
 	//enable clock GPIOD
@@ -297,8 +343,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  led_init();
 uart_init();
-printlog("xin chao:%f \r\n",3.14);
+adc_init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -451,6 +498,7 @@ void func1(void *argument)
   for(;;)
   {
 	led_toggle(LED_GREEN);
+	led_toggle(LED_RED);
     osDelay(1000);
 
   }
@@ -469,10 +517,10 @@ void func2(void *argument)
   /* USER CODE BEGIN func2 */
   /* Infinite loop */
   for(;;)
-  { int temp=0;
+  { float temp;
   osMessageQueueGet(sensor_queueHandle, &temp, 0, HAL_MAX_DELAY);
-  custom_printf("hello world:%d\r\n",temp);
-	     osDelay(1500);
+ printlog("temprature:%f \r\n",temp);
+	     osDelay(3000);
 
   }
   /* USER CODE END func2 */
@@ -488,13 +536,13 @@ void func2(void *argument)
 void func3(void *argument)
 {
   /* USER CODE BEGIN func3 */
-	  int sensor_value=0;
+	  float sensor_value;
   /* Infinite loop */
   for(;;)
   {
-	sensor_value++;
+	sensor_value=adc_get_temp();
 	osMessageQueuePut(sensor_queueHandle, &sensor_value, 0,HAL_MAX_DELAY);
-    osDelay(1000);
+    osDelay(100);
   }
   /* USER CODE END func3 */
 }
